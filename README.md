@@ -79,7 +79,7 @@ Running nikto on port 80 and 8000
 Running enum4linux
 
 ```jsx
-root@kali:~# enum4linux 192.168.122.150
+root@kali:~# **enum4linux 192.168.122.150**
 Starting enum4linux v0.8.9 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Sun Aug  9 08:21:07 2020
 
  ========================== 
@@ -318,25 +318,35 @@ Login using credential **daisa@photographer.com:babygirl**
 
 ![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%208.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%208.png)
 
+## Exploitation
+
 Uploading php-reverse-shell.php.gif.
 
 ![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%209.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%209.png)
 
-***Intercept request on burp and change file name from php-reverse-shell.php.gif to php-reverse-shell.php
+Intercept request on burp 
 
 ![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2010.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2010.png)
 
-Open php-reverse-shell.php and start listener side by side.
+Change filename from php-reverse-shell.php.gif to php-reverse-shell.php and forward request
 
 ![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2011.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2011.png)
 
-*** Successfully got shell of www-data user
+Access php-reverse-shell.php on web
 
 ![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2012.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2012.png)
 
-Found user flag in directory /home/daisa
+Side by side, starting nc listener on port 1234
 
 ![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2013.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2013.png)
+
+*** Successfully got shell of www-data user
+
+![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2014.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2014.png)
+
+Found user flag in directory /home/daisa
+
+![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2015.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2015.png)
 
 ## Privilege escalation
 
@@ -344,20 +354,20 @@ Find out services using SUID binaries.
 
 **find / -perm -4000 2>/dev/null**
 
-![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2014.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2014.png)
+![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2016.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2016.png)
 
 CMD="/bin/sh"
 
 /usr/bin/php7.2 -r "pcntl_exec('/bin/sh', ['-p']);"
 
-![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2015.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2015.png)
+![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2017.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2017.png)
 
 copy password of any user in your system from /etc/shadow and paste in /etc/passwd file of target root user.
 
-![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2016.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2016.png)
+![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2018.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2018.png)
 
 su - root
 
 cat proof.txt
 
-![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2017.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2017.png)
+![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2019.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled%2019.png)
