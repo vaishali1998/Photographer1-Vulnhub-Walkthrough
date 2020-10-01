@@ -4,11 +4,11 @@ Here is a walk through for Photographer:1 which is a vulnerable machine on Vulnh
 
 ## Scanning
 
-nmap -p- target-ip
+nmap -p- 192.168.122.150 (Full port scan)
 
 ![Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled.png](Photographer%201%20~Vulnhub%20Walkthrough%20a5585a09226b4b83ac614679deaffe92/Untitled.png)
 
-nmap -sV -A target-ip  (service version scanning)
+nmap -sV -A 192.168.122.150  (service version scanning)
 
 ```jsx
 root@kali:~# nmap -sV -A 192.168.122.150
@@ -294,7 +294,7 @@ root@kali:~#
 
 To access shared directory
 
-smbclient //target-ip/sambashare
+smbclient //192.168.122.150/sambashare
 
 ***Found 2 files.
 
